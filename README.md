@@ -6,8 +6,9 @@ Creates an Azure Firewall in a given region
 Reference the module to a specific version (recommended):
 ```hcl
 module "az_firewall" {
-    source                  = "git://github.com/aztfmod/az_firewall.git?ref=v0.1"
-  
+    source  = "aztfmod/caf-azure-firewall/azurerm"
+    version = "0.1.0"
+
     az_fw_name                        = var.az_fw_name
     az_fw_rg                          = var.virtual_network_rg
     subnet_id                         = var.subnetid
