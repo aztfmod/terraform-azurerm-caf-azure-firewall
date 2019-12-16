@@ -1,9 +1,16 @@
 #Reference: https://www.terraform.io/docs/providers/azurerm/r/firewall.html 
+module "caf_name_gen" {
+  source = "../terraform-azurerm-caf-naming/"
+  
+  name    = var.name
+  type    = "gen"
+  convention  = var.convention
+}
 
 resource "azurerm_firewall" "az_firewall" {
-  name                = var.az_fw_name
+  name                = module.caf_name_gen.gen
   location            = var.location 
-  resource_group_name = var.az_fw_rg
+  resource_group_name = var.rg
   tags                = local.tags
 
   ip_configuration {
