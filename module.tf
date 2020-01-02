@@ -1,6 +1,6 @@
 #Reference: https://www.terraform.io/docs/providers/azurerm/r/firewall.html 
 module "caf_name_gen" {
-  source = "../terraform-azurerm-caf-naming/"
+  source = "github.com/aztfmod/terraform-azurerm-caf-naming.git?ref=proto"
   
   name    = var.name
   type    = "gen"
