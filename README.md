@@ -152,6 +152,18 @@ diagnostics_settings = {
 }
 ```
 
+## convention
+(Required) Naming convention to be used.
+```hcl
+variable "convention" {
+  description = "(Required) Naming convention used"
+}
+```
+Example
+```hcl
+convention = "cafclassic"
+```
+
 # Output
 
 | Name | Type | Description | 
