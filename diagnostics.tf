@@ -1,6 +1,6 @@
 module "diagnostics_az_fw" {
   source  = "aztfmod/caf-diagnostics/azurerm"
-  version = "0.1.1"
+  version = "1.0.0"
 
   name                            = azurerm_firewall.az_firewall.name
   resource_id                     = azurerm_firewall.az_firewall.id

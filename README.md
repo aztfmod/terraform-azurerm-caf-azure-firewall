@@ -7,7 +7,7 @@ Reference the module to a specific version (recommended):
 ```hcl
 module "az_firewall" {
     source  = "aztfmod/caf-azure-firewall/azurerm"
-    version = "0.1.0"
+    version = "0.x.y"
 
     az_fw_name                        = var.az_fw_name
     az_fw_rg                          = var.virtual_network_rg
@@ -16,51 +16,35 @@ module "az_firewall" {
     location                          = var.location["region1"]
     tags                              = var.tags
     diagnostics_map                   = var.diagnostics_map
-    log_analytics_workspace           = var.log_analytics_workspace
-}
-```
-
-Or get the latest version
-```hcl
-module "az_firewall" {
-    source                  = "git://github.com/aztfmod/az_firewall.git?ref=latest"
-  
-    az_fw_name                        = var.az_fw_name
-    az_fw_rg                          = var.virtual_network_rg
-    subnet_id                         = var.subnetid
-    public_ip_id                      = var.pip.id
-    location                          = var.location["region1"]
-    tags                              = var.tags
-    diagnostics_map                   = var.diagnostics_map
-    log_analytics_workspace           = var.log_analytics_workspace
+    log_analytics_workspace_id           = var.log_analytics_workspace
 }
 ```
 
 # Parameters
-## az_fw_name
+## name
 (Required) Name of the Azure Firewall to be created
 ```hcl
-variable "az_fw_name" {
+variable "name" {
   description = "(Required) Name of the Azure Firewall to be created"  
 }
 
 ```
 Example
 ```hcl
-az_fw_name = "arnaud-firewall"
+name = "arnaud-firewall"
 ```
 
-## az_fw_rg
+## rg
 (Required) Resource Group of the Azure Firewall to be created.
 ```hcl
-variable "az_fw_rg" {
+variable "rg" {
   description = "(Required) Resource Group of the Azure Firewall to be created"  
 }
 
 ```
 Example
 ```hcl
-resource_group_name = "operations-rg"
+rg = "operations-rg"
 ```
 
 ## subnet_id
@@ -134,31 +118,28 @@ Example
       eh_name       = "opslogskumowxv"
   }
 ```
-## log_analytics_workspace
+## log_analytics_workspace_id
 (Required) Log Analytics Workspace details
 ```hcl
-variable "log_analytics_workspace" {
-  description = "(Required) Log Analytics data for the AzFW diagnostics"
+variable "log_analytics_workspace_id" {
+  description = "(Required) Log Analytics ID for the AzFW diagnostics"
 }
 ```
 Example
 ```hcl
-  log_analytics_workspace = {
-        id = "/subscriptions/783438ca-d497-4350-aa36-dc55fb0983ab/resourcegroups/ftau-hub-operations/providers/microsoft.operationalinsights/workspaces/ftaulevel1"
-        name = "ftaulevel1"
-  }
+  log_analytics_workspace_id =  "/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/ftau-hub-operations/providers/microsoft.operationalinsights/workspaces/ftaulevel1"
 ```
 
 ## diagnostics_settings
 (Required) Map with the settings for diagnostics of Azure Firewall
 ```hcl
-variable "diagnostics_map" {
+variable "diagnostics_settings" {
  description = "(Required) Map with the diagnostics repository information"
 }
 ```
 Example
 
-
+```hcl
 diagnostics_settings = {
     log = [
                 #["Category name",  "Diagnostics Enabled(true/false)", "Retention Enabled(true/false)", Retention_period] 
@@ -169,48 +150,25 @@ diagnostics_settings = {
                ["AllMetrics", true, true, 30],
     ]
 }
+```
 
+## convention
+(Required) Naming convention to be used.
+```hcl
+variable "convention" {
+  description = "(Required) Naming convention used"
+}
+```
+Example
+```hcl
+convention = "cafclassic"
+```
 
 # Output
-## az_firewall_config
-Returns the Azure Firewall object with following attributes:
-This is an old output kept for compatibility reason with v0.1
-which might nolonger be supported in future versions.
 
-```hcl
-output "az_firewall_config" {
-  value = {
-      az_fw_name        = azurerm_firewall.az_firewall.name
-      az_fw_id          = azurerm_firewall.az_firewall.id
-      az_ipconfig       = azurerm_firewall.az_firewall.ip_configuration
-      az_object         = azurerm_firewall.az_firewall
-  }
-}
-```
-
-## object
-Returns the Azure Firewall object with following attributes:
-
-```hcl
-output "object" {
-  value                 = azurerm_firewall.az_firewall
-}
-```
-
-## name
-Returns the Azure Firewall name:
-
-```hcl
-output "name" {
-  value                 = azurerm_firewall.az_firewall.name
-}
-```
-
-## id
-Returns the Azure Firewall ID
-
-```hcl
-output "id" {
-  value                 = azurerm_firewall.az_firewall.id
-}
-```
+| Name | Type | Description | 
+| -- | -- | -- | 
+| object | object | Returns the full object of the created Azure Firewall. |
+| name | string | Returns the name of the created Azure Firewall. |
+| id | string | Returns the ID of the created Azure Firewall. | 
+| az_firewall_config | map | Returns the Azure Firewall object with following attributes: <br> This is an old output kept for compatibility reason with v0.1 which might nolonger be supported in future versions. <br> It outputs: <br> - az_fw_name <br> -az_fw_id <br> -az_ipconfig <br> -az_object. |

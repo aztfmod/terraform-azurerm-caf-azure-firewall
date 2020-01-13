@@ -1,4 +1,4 @@
-variable "az_fw_name" {
+variable "name" {
   description = "(Required) Name of the Azure Firewall to be created"  
 }
 
@@ -10,7 +10,7 @@ variable "tags" {
   description = "(Required) Tags of the Azure Firewall to be created"  
 }
 
-variable "az_fw_rg" {
+variable "rg" {
   description = "(Required) Resource Group of the Azure Firewall to be created"  
 }
 
@@ -32,4 +32,8 @@ variable "public_ip_id" {
 
 variable "diagnostics_settings" {
  description = "(Required) Map with the diagnostics settings for AzFW deployment"
+}
+
+variable "convention" {
+  description = "(Required) Naming convention method to use"  
 }
