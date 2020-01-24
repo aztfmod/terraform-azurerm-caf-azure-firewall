@@ -18,7 +18,7 @@ variable "diagnostics_map" {
   description = "(Required) Storage Account and Event Hub data for the AzFW diagnostics"    
 }
 
-variable "log_analytics_workspace_id" {
+variable "la_workspace_id" {
   description = "(Required) ID of Log Analytics data for the AzFW diagnostics"
 }
 

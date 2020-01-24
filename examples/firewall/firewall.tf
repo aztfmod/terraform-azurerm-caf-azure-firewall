@@ -1,6 +1,3 @@
-data "azurerm_client_config" "current" {
-}
-
 module "rg_test" {
   source  = "aztfmod/caf-resource-group/azurerm"
   version = "0.1.1"
@@ -12,9 +9,9 @@ module "rg_test" {
 
 module "la_test" {
   source  = "aztfmod/caf-log-analytics/azurerm"
-  version = "0.1.0"
+  version = "1.0.0"
   
-    # convention          = local.convention
+    convention          = local.convention
     location            = local.location
     name                = local.name
     solution_plan_map   = local.solution_plan_map 
@@ -25,12 +22,15 @@ module "la_test" {
 
 module "diags_test" {
   source  = "aztfmod/caf-diagnostics-logging/azurerm"
-  version = "0.1.2"
+  version = "1.0.0"
 
+  name                  = local.name
+  convention            = local.convention
   resource_group_name   = module.rg_test.names.test
   prefix                = local.prefix
   location              = local.location
   tags                  = local.tags
+  enable_event_hub      = local.enable_event_hub
 }
 
 module "vnet_test" {
@@ -64,16 +64,16 @@ module "public_ip_test" {
 module "firewall_test" {
   source = "../../"
   
-  convention               = local.convention
-  name                     = local.az_fw_config.name
-  rg                       = module.rg_test.names.test
-  location                 = local.location 
-  tags                     = local.tags
-  log_analytics_workspace_id = module.la_test.id
-  diagnostics_map          = module.diags_test.diagnostics_map
-  diagnostics_settings     = local.az_fw_config.diagnostics
+  convention                  = local.convention
+  name                        = local.az_fw_config.name
+  rg                          = module.rg_test.names.test
+  location                    = local.location 
+  tags                        = local.tags
+  la_workspace_id             = module.la_test.id
+  diagnostics_map             = module.diags_test.diagnostics_map
+  diagnostics_settings        = local.az_fw_config.diagnostics
 
-  subnet_id                = lookup(module.vnet_test.vnet_subnets, "AzureFirewallSubnet", null)
-  public_ip_id             = module.public_ip_test.id
+  subnet_id                   = lookup(module.vnet_test.vnet_subnets, "AzureFirewallSubnet", null)
+  public_ip_id                = module.public_ip_test.id
 }
 

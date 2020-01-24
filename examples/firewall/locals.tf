@@ -1,14 +1,16 @@
 locals {
-    convention = "random"
-    name = "caftest-azfw"
+    convention = "cafrandom"
+    name = "caftest-azfw4"
     location = "southeastasia"
     prefix = ""
     resource_groups = {
         test = { 
-            name     = "test-caf-azfw"
+            name     = "test-caf-azfw4"
             location = "southeastasia" 
         },
     }
+    enable_event_hub = true
+    #must be set to true while using virtual network v.0.2
     tags = {
         environment     = "DEV"
         owner           = "CAF"
@@ -55,7 +57,7 @@ locals {
     }
 
     az_fw_config = {
-        name = "az-fw-arnaud"
+        name = "az-fw-caftest"
         diagnostics = {
             log = [
                         #["Category name",  "Diagnostics Enabled(true/false)", "Retention Enabled(true/false)", Retention_period] 
@@ -69,7 +71,7 @@ locals {
     }
 
     ip_addr_config = {
-        ip_name = "arnaud-pip-egress"    
+        ip_name = "caftest-pip-egress"    
         allocation_method   = "Static"
         #Dynamic Public IP Addresses aren't allocated until they're assigned to a resource (such as a Virtual Machine or a Load Balancer) by design within Azure 
         
