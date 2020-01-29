@@ -4,7 +4,7 @@ module "diagnostics_az_fw" {
 
   name                            = azurerm_firewall.az_firewall.name
   resource_id                     = azurerm_firewall.az_firewall.id
-  log_analytics_workspace_id      = var.log_analytics_workspace_id
+  log_analytics_workspace_id      = var.la_workspace_id
   diagnostics_map                 = var.diagnostics_map
   diag_object                     = var.diagnostics_settings
 }
