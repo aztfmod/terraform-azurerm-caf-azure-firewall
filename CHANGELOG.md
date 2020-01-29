@@ -1,4 +1,4 @@
-## v1.0 (January 2020)
+## v1.1 (January 2020)
 
 FEATURES: 
 * **new feature:**  Add support for naming convention ([#3](https://github.com/aztfmod/terraform-azurerm-caf-azure-firewall/issues/3))
