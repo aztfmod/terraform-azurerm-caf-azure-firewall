@@ -83,6 +83,5 @@ module "firewall_test" {
 
   subnet_id                   = lookup(module.vnet_test.vnet_subnets, "AzureFirewallSubnet", null)
   public_ip_id                = module.public_ip_test.id
-  max_length                  = local.max_length
 }
 

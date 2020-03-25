@@ -3,7 +3,6 @@ locals {
     name = "azfwcaf"
     location = "southeastasia"
     prefix = ""
-    max_length = 60
     resource_groups = {
         test = { 
             name     = "test-caf-azfirewall"
