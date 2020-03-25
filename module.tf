@@ -1,15 +1,15 @@
 #Reference: https://www.terraform.io/docs/providers/azurerm/r/firewall.html 
-module "caf_name_afw" {
-  source  = "aztfmod/caf-naming/azurerm"
-  version = "~> 0.1.0"
-
-  name    = var.name
-  type    = "afw"
-  convention  = var.convention
+resource "azurecaf_naming_convention" "caf_name_afw" {  
+  name          = var.name
+  prefix        = var.prefix != "" ? var.prefix : null
+  postfix       = var.postfix != "" ? var.postfix : null
+  max_length    = var.max_length != "" ? var.max_length : null
+  resource_type = "azurerm_firewall"
+  convention    = var.convention
 }
 
 resource "azurerm_firewall" "az_firewall" {
-  name                = module.caf_name_afw.afw
+  name                = azurecaf_naming_convention.caf_name_afw.result
   location            = var.location 
   resource_group_name = var.rg
   tags                = local.tags

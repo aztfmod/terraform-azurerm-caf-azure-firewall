@@ -1,16 +1,17 @@
 locals {
     convention = "cafrandom"
-    name = "caftest-azfw4"
+    name = "azfwcaf"
     location = "southeastasia"
     prefix = ""
+    max_length = 60
     resource_groups = {
         test = { 
-            name     = "test-caf-azfw4"
+            name     = "test-caf-azfirewall"
             location = "southeastasia" 
         },
     }
     enable_event_hub = true
-    #must be set to true while using virtual network v.0.2
+
     tags = {
         environment     = "DEV"
         owner           = "CAF"

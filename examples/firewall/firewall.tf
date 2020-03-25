@@ -1,32 +1,35 @@
-module "rg_test" {
-  source  = "aztfmod/caf-resource-group/azurerm"
-  version = "0.1.1"
-  
-    prefix          = local.prefix
-    resource_groups = local.resource_groups
-    tags            = local.tags
+provider "azurerm" {
+   features {}
+}
+
+resource "azurerm_resource_group" "rg_test" {
+  name     = local.resource_groups.test.name
+  location = local.resource_groups.test.location
+  tags     = local.tags
 }
 
 module "la_test" {
-  source  = "aztfmod/caf-log-analytics/azurerm"
-  version = "1.0.0"
+  # source  = "aztfmod/caf-log-analytics/azurerm"
+  # version = "1.0.0"
+  source = "git://github.com/aztfmod/terraform-azurerm-caf-log-analytics?ref=2003-refresh"
   
     convention          = local.convention
     location            = local.location
     name                = local.name
     solution_plan_map   = local.solution_plan_map 
     prefix              = local.prefix
-    resource_group_name = module.rg_test.names.test
+    resource_group_name = azurerm_resource_group.rg_test.name
     tags                = local.tags
 }
 
 module "diags_test" {
-  source  = "aztfmod/caf-diagnostics-logging/azurerm"
-  version = "1.0.0"
+  # source  = "aztfmod/caf-diagnostics-logging/azurerm"
+  # version = "1.0.0"
+  source = "git://github.com/aztfmod/terraform-azurerm-caf-diagnostics-logging?ref=2003-refresh"
 
   name                  = local.name
   convention            = local.convention
-  resource_group_name   = module.rg_test.names.test
+  resource_group_name   = azurerm_resource_group.rg_test.name
   prefix                = local.prefix
   location              = local.location
   tags                  = local.tags
@@ -34,10 +37,12 @@ module "diags_test" {
 }
 
 module "vnet_test" {
-  source  = "aztfmod/caf-virtual-network/azurerm"
-  version = "0.2.0"
+  # source  = "aztfmod/caf-virtual-network/azurerm"
+  # version = "0.2.0"
+  source = "git://github.com/aztfmod/terraform-azurerm-caf-virtual-network?ref=2003-refresh"
+
     
-  virtual_network_rg                = module.rg_test.names.test
+  virtual_network_rg                = azurerm_resource_group.rg_test.name
   prefix                            = local.prefix
   location                          = local.location
   networking_object                 = local.vnet_config
@@ -45,20 +50,23 @@ module "vnet_test" {
   diagnostics_map                   = module.diags_test.diagnostics_map
   log_analytics_workspace           = module.la_test
   diagnostics_settings              = local.vnet_config.diagnostics
+  convention                        = local.convention
 }
 
 module "public_ip_test" {
-  source  = "aztfmod/caf-public-ip/azurerm"
-  version = "0.1.3"
+  # source  = "aztfmod/caf-public-ip/azurerm"
+  # version = "0.1.3"
+  source = "git://github.com/aztfmod/terraform-azurerm-caf-public-ip?ref=2003-refresh"
 
   name                             = local.ip_addr_config.ip_name
   location                         = local.location
-  rg                               = module.rg_test.names.test
+  rg                               = azurerm_resource_group.rg_test.name
   ip_addr                          = local.ip_addr_config
   tags                             = local.tags
   diagnostics_map                  = module.diags_test.diagnostics_map
   log_analytics_workspace_id       = module.la_test.id
   diagnostics_settings             = local.ip_addr_config.diagnostics
+  convention                       = local.convention
 }
 
 module "firewall_test" {
@@ -66,7 +74,7 @@ module "firewall_test" {
   
   convention                  = local.convention
   name                        = local.az_fw_config.name
-  rg                          = module.rg_test.names.test
+  rg                          = azurerm_resource_group.rg_test.name
   location                    = local.location 
   tags                        = local.tags
   la_workspace_id             = module.la_test.id
@@ -75,5 +83,6 @@ module "firewall_test" {
 
   subnet_id                   = lookup(module.vnet_test.vnet_subnets, "AzureFirewallSubnet", null)
   public_ip_id                = module.public_ip_test.id
+  max_length                  = local.max_length
 }
 
