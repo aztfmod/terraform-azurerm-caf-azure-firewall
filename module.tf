@@ -11,7 +11,7 @@ resource "azurecaf_naming_convention" "caf_name_afw" {
 resource "azurerm_firewall" "az_firewall" {
   name                = azurecaf_naming_convention.caf_name_afw.result
   location            = var.location 
-  resource_group_name = var.rg
+  resource_group_name = var.resource_group_name
   tags                = local.tags
 
   ip_configuration {
@@ -20,3 +20,4 @@ resource "azurerm_firewall" "az_firewall" {
     public_ip_address_id = var.public_ip_id
   }
 }
+

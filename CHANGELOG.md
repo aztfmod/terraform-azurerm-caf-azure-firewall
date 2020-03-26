@@ -1,3 +1,11 @@
+## v2.0 (March 2020)
+
+FEATURES: 
+* **new feature:**  Add support for azurerm 2.x and azurecaf providers ([#6](https://github.com/aztfmod/terraform-azurerm-caf-azure-firewall/issues/6))
+
+IMPROVEMENTS:
+* **improvement:**  Changing to resource_group_name instead of rg.
+
 ## v1.1 (January 2020)
 
 FEATURES: 

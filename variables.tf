@@ -10,7 +10,7 @@ variable "tags" {
   description = "(Required) Tags of the Azure Firewall to be created"  
 }
 
-variable "rg" {
+variable "resource_group_name" {
   description = "(Required) Resource Group of the Azure Firewall to be created"  
 }
 

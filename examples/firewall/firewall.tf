@@ -39,7 +39,7 @@ module "diags_test" {
 module "vnet_test" {
   # source  = "aztfmod/caf-virtual-network/azurerm"
   # version = "0.2.0"
-  source = "git://github.com/aztfmod/terraform-azurerm-caf-virtual-network?ref=2003-refresh"
+  source = "git://github.com/aztfmod/terraform-azurerm-caf-virtual-network?ref=2003-refresh-2"
 
     
   virtual_network_rg                = azurerm_resource_group.rg_test.name
@@ -51,6 +51,7 @@ module "vnet_test" {
   log_analytics_workspace           = module.la_test
   diagnostics_settings              = local.vnet_config.diagnostics
   convention                        = local.convention
+  max_length = 60
 }
 
 module "public_ip_test" {
@@ -74,7 +75,7 @@ module "firewall_test" {
   
   convention                  = local.convention
   name                        = local.az_fw_config.name
-  rg                          = azurerm_resource_group.rg_test.name
+  resource_group_name         = azurerm_resource_group.rg_test.name
   location                    = local.location 
   tags                        = local.tags
   la_workspace_id             = module.la_test.id
