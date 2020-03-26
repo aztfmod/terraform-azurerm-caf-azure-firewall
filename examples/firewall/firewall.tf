@@ -9,9 +9,8 @@ resource "azurerm_resource_group" "rg_test" {
 }
 
 module "la_test" {
-  # source  = "aztfmod/caf-log-analytics/azurerm"
-  # version = "1.0.0"
-  source = "git://github.com/aztfmod/terraform-azurerm-caf-log-analytics?ref=2003-refresh"
+  source  = "aztfmod/caf-log-analytics/azurerm"
+  version = "2.0.0"
   
     convention          = local.convention
     location            = local.location
@@ -23,9 +22,8 @@ module "la_test" {
 }
 
 module "diags_test" {
-  # source  = "aztfmod/caf-diagnostics-logging/azurerm"
-  # version = "1.0.0"
-  source = "git://github.com/aztfmod/terraform-azurerm-caf-diagnostics-logging?ref=2003-refresh"
+  source  = "aztfmod/caf-diagnostics-logging/azurerm"
+  version = "2.0.0"
 
   name                  = local.name
   convention            = local.convention
@@ -37,10 +35,8 @@ module "diags_test" {
 }
 
 module "vnet_test" {
-  # source  = "aztfmod/caf-virtual-network/azurerm"
-  # version = "0.2.0"
-  source = "git://github.com/aztfmod/terraform-azurerm-caf-virtual-network?ref=2003-refresh-2"
-
+  source  = "aztfmod/caf-virtual-network/azurerm"
+  version = "2.0.0"
     
   virtual_network_rg                = azurerm_resource_group.rg_test.name
   prefix                            = local.prefix
@@ -55,9 +51,8 @@ module "vnet_test" {
 }
 
 module "public_ip_test" {
-  # source  = "aztfmod/caf-public-ip/azurerm"
-  # version = "0.1.3"
-  source = "git://github.com/aztfmod/terraform-azurerm-caf-public-ip?ref=2003-refresh"
+  source  = "aztfmod/caf-public-ip/azurerm"
+  version = "2.0.0"
 
   name                             = local.ip_addr_config.ip_name
   location                         = local.location
