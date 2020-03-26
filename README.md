@@ -11,7 +11,7 @@ module "az_firewall" {
     version = "0.x.y"
 
     name                              = var.az_fw_name
-    rg                                = var.virtual_network_rg
+    resource_group_name               = var.virtual_network_rg
     subnet_id                         = var.subnetid
     public_ip_id                      = var.pip.id
     location                          = var.location["region1"]
@@ -26,7 +26,7 @@ module "az_firewall" {
 | Name | Type | Default | Description | 
 | -- | -- | -- | -- | 
 | name | string | None | Specifies the name of the Container Registry. Changing this forces a new resource to be created. |
-| rg | string | None | The name of the resource group in which to create the Container Registry. Changing this forces a new resource to be created. |
+| resource_group_name | string | None | The name of the resource group in which to create the Container Registry. Changing this forces a new resource to be created. |
 | location | string | None | Specifies the supported Azure location where the resource exists. Changing this forces a new resource to be created.  | 
 | tags | map | None | Map of tags for the deployment.  | 
 | la_workspace_id | string | None | Log Analytics Repository ID. | 
