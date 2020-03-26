@@ -1,4 +1,5 @@
-[![Build status](https://dev.azure.com/azure-terraform/Blueprints/_apis/build/status/modules/azure_firewall)](https://dev.azure.com/azure-terraform/Blueprints/_build/latest?definitionId=11)
+[![Gitter](https://badges.gitter.im/aztfmod/community.svg)](https://gitter.im/aztfmod/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 # Deploys Azure Firewall
 Creates an Azure Firewall in a given region
 
@@ -10,7 +11,7 @@ module "az_firewall" {
     version = "0.x.y"
 
     name                              = var.az_fw_name
-    rg                                = var.virtual_network_rg
+    resource_group_name               = var.virtual_network_rg
     subnet_id                         = var.subnetid
     public_ip_id                      = var.pip.id
     location                          = var.location["region1"]
@@ -25,7 +26,7 @@ module "az_firewall" {
 | Name | Type | Default | Description | 
 | -- | -- | -- | -- | 
 | name | string | None | Specifies the name of the Container Registry. Changing this forces a new resource to be created. |
-| rg | string | None | The name of the resource group in which to create the Container Registry. Changing this forces a new resource to be created. |
+| resource_group_name | string | None | The name of the resource group in which to create the Container Registry. Changing this forces a new resource to be created. |
 | location | string | None | Specifies the supported Azure location where the resource exists. Changing this forces a new resource to be created.  | 
 | tags | map | None | Map of tags for the deployment.  | 
 | la_workspace_id | string | None | Log Analytics Repository ID. | 
@@ -34,7 +35,9 @@ module "az_firewall" {
 | subnet_id | string | None | ID for the subnet where to deploy the Azure Firewall  | 
 | public_ip_id | string | None | ID for the public IP to deploy the Azure Firewall | 
 | convention | string | None | Naming convention to be used (check at the naming convention module for possible values).  | 
-| prefix | string | None | Prefix to be used (to be deprecated)  | 
+| prefix | string | None | (Optional) Prefix to be used. |
+| postfix | string | None | (Optional) Postfix to be used. |
+| max_length | string | None | (Optional) maximum length to the name of the resource. |
 
 ## Output
 
