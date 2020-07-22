@@ -1,3 +1,8 @@
+## v2.1 (July 2020)
+
+FEATURES: 
+* **new feature:**  Add support for Terraform 013 ([#9](https://github.com/aztfmod/terraform-azurerm-caf-azure-firewall/issues/9))
+
 ## v2.0 (March 2020)
 
 FEATURES: 
