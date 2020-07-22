@@ -26,4 +26,42 @@ module "az_firewall" {
 ```
 
 <!--- BEGIN_TF_DOCS --->
+## Requirements
+
+No requirements.
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| azurecaf | n/a |
+| azurerm | n/a |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| convention | (Required) Naming convention method to use | `any` | n/a | yes |
+| diagnostics\_map | (Required) Storage Account and Event Hub data for the AzFW diagnostics | `any` | n/a | yes |
+| diagnostics\_settings | (Required) Map with the diagnostics settings for AzFW deployment | `any` | n/a | yes |
+| la\_workspace\_id | (Required) ID of Log Analytics data for the AzFW diagnostics | `any` | n/a | yes |
+| location | (Required) Location of the Azure Firewall to be created | `any` | n/a | yes |
+| max\_length | (Optional) You can speficy a maximum length to the name of the resource | `string` | `"50"` | no |
+| name | (Required) Name of the Azure Firewall to be created | `any` | n/a | yes |
+| postfix | (Optional) You can use a postfix to the name of the resource | `string` | `""` | no |
+| prefix | (Optional) You can use a prefix to the name of the resource | `string` | `""` | no |
+| public\_ip\_id | (Required) Public IP address identifier. IP address must be of type static and standard. | `any` | n/a | yes |
+| resource\_group\_name | (Required) Resource Group of the Azure Firewall to be created | `any` | n/a | yes |
+| subnet\_id | (Required) ID for the subnet where to deploy the Azure Firewall | `any` | n/a | yes |
+| tags | (Required) Tags of the Azure Firewall to be created | `any` | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| az\_firewall\_config | Outputs a map with az\_fw\_name,az\_fw\_id,az\_ipconfig,az\_object - to be deprecated in future version |
+| id | Output the object ID |
+| name | Output the object name |
+| object | Output the full object |
+
 <!--- END_TF_DOCS --->
